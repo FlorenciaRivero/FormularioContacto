@@ -25,6 +25,20 @@
             android:text="Mail"
             android:gravity="center"/>
 
+        <TextView
+            android:id="@+id/myTextView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mail"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/myTextView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripcion"
+            android:gravity="center"/>
+
         <Button
             android:id="@+id/buttonEditar"
             android:layout_width="match_parent"
