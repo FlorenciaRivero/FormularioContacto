@@ -7,58 +7,48 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+import android.widget.DatePicker;
 
-import java.util.ArrayList;
+public class MainActivity extends AppCompatActivity {
 
-public class MainActivity<btnEdit> extends AppCompatActivity {
-
-    Button btn;
-    EditText et;
-    EditText et2;
-    EditText et3;
-    EditText et4;
-    String st;
-    String st2;
-    String st3;
-    String st4;
-
+    EditText et, et2, et3, et4;
+    String st, st2, st3, st4;
+    DatePicker fecha;
+    Button siguiente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn = (Button) findViewById(R.id.buttonSiguiente);
         et = findViewById(R.id.editTextName);
+        fecha = findViewById(R.id.datePickerBirthday);
         et2 = findViewById(R.id.editTextMail);
         et3 = findViewById(R.id.editTextTelefono);
         et4 = findViewById(R.id.editTextDescripcion);
+        siguiente = findViewById(R.id.buttonSiguiente);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        et.setText(getIntent().getStringExtra("Value"));
+        et2.setText(getIntent().getStringExtra("Mail"));
+        et3.setText(getIntent().getStringExtra("Telefono"));
+        et4.setText(getIntent().getStringExtra("Descripcion"));
+
+        siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, PantallaConfirmacion.class);
-
-                st = et.getText().toString();
-                st2 = et2.getText().toString();
-                st3 = et3.getText().toString();
-                st4 = et4.getText().toString();
-
-                intent.putExtra("Value",st);
-                intent.putExtra("Mail", st2);
-                intent.putExtra("Telefono", st3);
-                intent.putExtra("Descripcion", st4);
-                startActivity(intent);
-                finish();
+                if (!et.getText().toString().isEmpty() && !et3.getText().toString().isEmpty() && !et2.getText().toString().isEmpty()) {
+                    Intent intent = new Intent(MainActivity.this, PantallaConfirmacion.class);
+                    intent.putExtra("Value", et.getText().toString());
+                    intent.putExtra("Fecha", String.valueOf(fecha.getMonth() + 1) + '-' + (fecha.getDayOfMonth()) + '-' + (fecha.getYear()));
+                    intent.putExtra("Mail", et2.getText().toString());
+                    intent.putExtra("Telefono", et3.getText().toString());
+                    intent.putExtra("Descripcion", et4.getText().toString());
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
     }
-
-
-    public void sendFeedback(View view) {
-        //Do click handling here
-
-    }
-
 }
